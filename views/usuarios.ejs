@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuarios - SISTEMA BANCARIO</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+      body {
+        font-family: Manrope;
+        background-color: rgb(240, 247, 255);
+
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        color: black;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 40px;
+      }
+      h2 {
+        color: black;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 25px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+        max-width: 600px;
+        background-color: #716bbe;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      li:hover {
+        background-color: #e3b2f2;
+      }
+      .form-container {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: rgb(238, 195, 232);
+      }
+      .form-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #42235a;
+      }
+      .form-container input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .form-container button {
+        padding: 10px 20px;
+        background-color: #995bc2;
+        color: #fff;
+        border: none;
+        border-radius: 28px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .form-container button:hover {
+        background-color: #995bc2;
+      }
+
+      .edit-button,
+      .delete-button {
+        padding: 3px;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .edit-button {
+        background-color: #d652d0;
+      }
+      .edit-button:hover {
+        background-color: #81298d;
+      }
+      .delete-button {
+        background-color: #da4b4b;
+      }
+      .delete-button:hover {
+        background-color: #b71c1c;
+      }
+      .message {
+        display: none;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 10px;
+      }
+      .message.success {
+        background-color: #d4edda;
+        color: #8959b1;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 600px;
+        gap: 10px;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #995bc2;
+        padding: 10px 20px;
+        border-radius: 20px;
+        transition: background-color 0.3s;
+      }
+      .nav a:hover {
+        background-color: #713797;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SISTEMA BANCARIO</h1>
+    <h2>USUARIOS</h2>
+
+    <div id="message" class="message success">
+      Refresca la página para ver los cambios
+    </div>
+
+    <div class="form-container">
+      <h2>Registrar usuario</h2>
+      <form id="add-user-form" onsubmit="addUser(event)">
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id" required />
+
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="pasword">Pasword:</label>
+        <input type="text" id="pasword" name="pasword" required />
+
+        <label for="tipo-cuenta">Tipo de cuenta:</label>
+        <select id="tipo-cuenta" name="tipo-cuenta" required>
+          <option value="ahorro">Ahorro</option>
+          <option value="prestamo">Prestamo</option>
+        </select>
+
+        <label for="balance">Balance:</label>
+        <input type="number" id="balance" name="balance" required />
+
+        <label for="fecha">Fecha de pago cuenta :</label>
+        <input type="date" id="fecha" name="fecha" required />
+
+        <label for="tasa-interes">Tasa de interes:</label>
+        <input type="number" id="tasa-interes" name="tasa-interes" required />
+
+        <label for="cooperativa">Cooperativa:</label>
+        <select id="cooperativa" name="cooperativa" required>
+          <option value="vivienda">Vivienda</option>
+          <option value="salud">Salud</option>
+        </select>
+
+        <label for="balance-cooperativa">Balance de cooperativa:</label>
+        <input
+          type="number"
+          id="balance-cooperativa"
+          name="balance-cooperativa"
+          required
+        />
+
+        
+        <label for="fecha-cooperativa">Fecha de pago cooperativa:</label>
+        <input
+        type="date"
+        id="fecha-cooperativa"
+        name="fecha-cooperativa"
+        required
+        />
+        
+        <label for="rol">Rol:</label>
+        <select id="rol" name="rol" required>
+          <option value="admin">Admin</option>
+          <option value="empleado">Empleado</option>
+          <option value="cliente">Cliente</option>
+        </select>
+        <button type="submit">Agregar Usuario</button>
+      </form>
+    </div>
+    <div class="nav">
+      <a href="/">Inicio</a>
+      <a href="/cooperativas">Cooperativas</a>
+    </div>
+    <div
+      class="form-container"
+      id="edit-user-form-container"
+      style="display: none"
+    >
+      <h2>Editar Usuario</h2>
+      <form id="edit-user-form" onsubmit="updateUser(event)">
+        <input type="hidden" id="edit-id" name="id" />
+
+        <label for="edit-nombre">Nombre:</label>
+        <input type="text" id="edit-nombre" name="nombre" required />
+
+        <button type="submit">Actualizar Usuario</button>
+      </form>
+    </div>
+    <ul id="user-list">
+      <% usuarios.forEach(usuario => { %>
+      <li>
+        <span>ID: <%= usuario.id %> - <%= usuario.nombre %> </span>
+
+        <div>
+          <button
+            class="edit-button"
+            onclick="editUser('<%= usuario.id %>', '<%= usuario.nombre %>', '<%= usuario.email %>')"
+          >
+            Editar
+          </button>
+          <button
+            class="delete-button"
+            onclick="deleteUser('<%= usuario.id %>')"
+          >
+            Eliminar
+          </button>
+        </div>
+        <button
+          style="
+            padding: 3px;
+            border-radius: 8px;
+            background-color: #d4bee2;
+            border-radius: 20px;
+            cursor: pointer;
+          "
+        >
+          <a href="/usuarios/<%= usuario.id %>">Detalles</a>
+        </button>
+
+        <button
+          style="
+            padding: 3px;
+            border-radius: 8px;
+            background-color: #d4bee2;
+            border-radius: 20px;
+            cursor: pointer;
+          "
+        >
+          <a href="/usuarios/resumen/<%= usuario.id %>">Resumen</a>
+        </button>
+      </li>
+      <% }); %>
+    </ul>
+
+    <script>
+      const labelFechaCooperativa = document.getElementById("fecha");
+      const selectTipoCuenta = document.getElementById("tipo-cuenta");
+      function handleTipoCuentaChange() {
+        const selectedTipoCuenta = selectTipoCuenta.value;
+
+        if (selectedTipoCuenta === "prestamo") {
+          labelFechaCooperativa.style.display = "block"; // Mostrar el label
+        } else {
+          labelFechaCooperativa.style.display = "none"; // Ocultar el label
+        }
+      }
+      selectTipoCuenta.addEventListener("change", handleTipoCuentaChange);
+
+      function showMessage(message, type) {
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = message;
+        messageDiv.className = "message " + type;
+        messageDiv.style.display = "block";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+        }, 3001);
+      }
+
+      function addUser(event) {
+        const userData = {
+          id: document.getElementById("id").value,
+          nombre: document.getElementById("nombre").value,
+          pasword: document.getElementById("pasword").value,
+          tipoCuenta: document.getElementById("tipo-cuenta").value,
+          balance: document.getElementById("balance").value,
+          fechaProximoPago: document.getElementById("fecha").value,
+          tasaInteres: document.getElementById("tasa-interes").value,
+          cooperativa: document.getElementById("cooperativa").value,
+          balanceCooperativa: document.getElementById("balance-cooperativa").value,
+          fechaCooperativa: document.getElementById("fecha-cooperativa").value,
+          rol: document.getElementById("rol").value
+        };
+  event.preventDefault();
+
+
+  const urlPeticionUsuarios = "http://localhost:3001/usuarios"; // Assuming this is the endpoint for creating users
+
+  fetch(urlPeticionUsuarios, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      createAccount(userData);
+      createCooperative(userData);
+      if (data.success) {
+        // User creation successful, proceed to create account
+        
+        showMessage(
+          "Usuario agregado exitosamente. Refresca la página para ver los cambios.",
+          "success"
+        );
+      } else {
+        showMessage("Error al agregar usuario: " + data.error, "error");
+      }
+    })
+    .catch((error) => {
+      console.error("Error al agregar usuario:", error);
+      showMessage("Error al agregar usuario. Intente nuevamente.", "error");
+    });
+}
+
+function createAccount(userData) {
+  const accountData = {
+    id: userData.id, // Assuming userId is the identifier for the newly created user
+    tipoCuenta: userData.tipoCuenta,
+    balance: userData.balance,
+    fechaProximoPago: userData.fechaProximoPago,
+    tasaInteres: userData.tasaInteres,
+    cooperativa: userData.cooperativa,
+    balanceCooperativa: userData.balanceCooperativa,
+    fechaCooperativa: userData.fechaCooperativa,
+  };
+
+  let urlPeticion;
+  if (accountData.tipoCuenta === "ahorro") {
+    urlPeticion = "http://localhost:3001/cuentas/cuentas-ahorro";
+  } else if (accountData.tipoCuenta === "prestamo") {
+    urlPeticion = "http://localhost:3001/cuentas/cuentas-prestamos"; // Assuming you have a /prestamos endpoint
+  } else {
+    console.error("Tipo de cuenta desconocido:", accountData.tipoCuenta);
+    return;
+  }
+
+  fetch(urlPeticion, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(accountData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        console.log("Cuenta creada exitosamente para el usuario:", userData.id);
+      } else {
+        console.error("Error al crear cuenta para el usuario:", userData.id, data.error);
+      }
+    })
+    .catch((error) => {
+      console.error("Error al crear cuenta para el usuario:", userData.id, error);
+    });
+}
+function createCooperative(userData) {
+  const accountData = {
+    id: userData.id, // Assuming userId is the identifier for the newly created user
+    tipoCuenta: userData.tipoCuenta,
+    balance: userData.balance,
+    fechaProximoPago: userData.fechaProximoPago,
+    tasaInteres: userData.tasaInteres,
+    cooperativa: userData.cooperativa,
+    balanceCooperativa: userData.balanceCooperativa,
+    fechaCooperativa: userData.fechaCooperativa,
+  };
+
+ 
+
+  fetch("http://localhost:3001/cooperativas", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(accountData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        console.log("Cuenta creada exitosamente para el usuario:", userData.id);
+      } else {
+        console.error("Error al crear cuenta para el usuario:", userData.id, data.error);
+      }
+    })
+    .catch((error) => {
+      console.error("Error al crear cuenta para el usuario:", userData.id, error);
+    });
+}
+
+      function deleteUser(id) {
+        fetch(`http://localhost:3001/usuarios/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              showMessage(
+                "Usuario eliminado exitosamente. Refresca la página para ver los cambios.",
+                "success"
+              );
+            }
+          });
+      }
+
+      function editUser(id, nombre) {
+        document.getElementById("edit-id").value = id;
+        document.getElementById("edit-nombre").value = nombre;
+        document.getElementById("edit-user-form-container").style.display =
+          "block";
+      }
+
+      function updateUser(event) {
+        event.preventDefault();
+
+        const id = document.getElementById("edit-id").value;
+        const nombre = document.getElementById("edit-nombre").value;
+
+        fetch(`http://localhost:3001/usuarios/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ nombre }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              showMessage(
+                "Usuario actualizado exitosamente. Refresca la página para ver los cambios.",
+                "success"
+              );
+              document.getElementById(
+                "edit-user-form-container"
+              ).style.display = "none";
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
