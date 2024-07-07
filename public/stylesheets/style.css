@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+
+body {
+  font-family: Manrope;
+  background-color: rgb(240, 247, 255);
+   /* Replace with your font choices */
+}
+
+
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  width: fit-content;
+
+  }
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.account-summary,
+.user-accounts {
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  
+}
+
+
+.summary-title,
+.user-accounts-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.summary-grid,
+.user-list {
+  grid-gap: 15px;
+  display: flex;
+  justify-content: space-between; /* Distribuye el espacio entre los div */
+  align-items: center;
+}
+
+.summary-item,
+.user-card {
+  background-color: rgb(230, 242, 255);
+  border-radius: 5px;
+  padding: 15px;
+  width: 300px ; /* Set width to 50% of its parent's width */
+  height: auto
+}
+
+.summary-item-title,
+.summary-item-info,
+.user-card-name {
+  margin-bottom: 10px;
+}
+
+.summary-item-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.user-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: left;
+  padding: 10px 20px;
+}
+
+/* Button styles */
+.btn {
+  background-color: rgb(6, 6, 8); /* Green */
+  border: none;
+  color: rgb(238, 195, 232);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  width: fit-content;
+  height: fit-content;
+  
+}
+
+.btn:hover {
+  background-color: rgb(64, 64, 82); /* Darker green */
+}
+
+.btn.edit {
+  background-color: rgb(237, 200, 234); /* Orange */
+}
+
+.btn.edit:hover {
+  background-color: rgb(204, 172, 196); /* Darker orange */
+}
+
+.btn.delete {
+  background-color: rgb(255, 255, 255); /* Red */
+}
+
+.btn.delete:hover {
+  background-color: rgb(223, 223, 223); /* Darker red */
+}
+
+.footer {
+    bottom: 0.6px;
+    width: 100%;
+    font-size: 16px;
+    color: #190422;
+    background-color: rgba(165, 125, 218, 0.6); /* Color con 70% de opacidad */
+    padding: 10px; 
+    text-align:center; 
+ }
+
+ .flex {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #0967d2;
+  padding: 20px 0;
+  color: #fff;
+}
+
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.space-y-4 {
+  gap: 4px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.text-primary-foreground {
+  color: #fff;
+}
+
+.text-muted-foreground {
+  color: #9faebd;
+}
+
+.rounded-md {
+  border-radius: 6px;
+}
+
+.bg-primary {
+  background-color: rgb(238, 195, 232);
+}
+
+.bg-muted {
+  background-color: #f2f2f2;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.px-6 {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.py-3 {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.ml-4 {
+  margin-left: 16px;
+}
+
+.max-w-full {
+  max-width: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.object-fit:cover {
+  object-fit: cover;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.hover:underline {
+  text-decoration: underline;
+}
+
+.footer {
+  padding: 40px 0;
+}
+
+
+/* Add more styles for user card information elements here */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header {
+  background-color: rgb(238, 195, 232);
+  border-radius: 10px 10px 0 0;
+  width: 80%;
+  text-align: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Balance info styles */
+.balance-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.balance-info .user-name {
+  font-size: 30px;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.balance-info .balance-amount {
+  font-size: 40px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Balance input styles */
+.balance-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.balance-input label {
+  flex-shrink: 0;
+  width: 80px;
+  margin-right: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.balance-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}

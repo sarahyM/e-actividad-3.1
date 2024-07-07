@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resumen del Usuario - SISTEMA BANCARIO</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("./imagen/ahorro.jpg");
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #333;
+      }
+      h1 {
+        color: #5171b4;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 2px rgba(52, 77, 100, 0.548);
+        font-weight: bold;
+      }
+      .user-details {
+        background-color: #e9afe9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: left;
+      }
+      .user-details p {
+        margin: 10px 0;
+      }
+      .user-details p span {
+        font-weight: bold;
+        color: #5d5d5d;
+      }
+      .back-link {
+        padding: 10px 20px;
+        background-color: #995bc2;
+        color: #fff;
+        border: none;
+        border-radius: 28px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+      }
+      .back-link:hover {
+        color: #1e062e;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="user-list" class="user-details">
+     
+      <li>
+
+        <div>
+          <h2>Usuario</h2>
+      <p><span>Nombre:</span> <%= usuario.nombre %></p>
+      <h2>Cuenta del Usuario</h2>
+      <p><span>Balance:</span> <%= usuario.balance %></p>
+         
+      </li>
+    
+    </ul>
+
+    <h2>Editar Balance</h2>
+<form id="edit-user-form" onsubmit="updateUser(event)">
+  
+        <label for="edit-balance">Balance:</label>
+        <input type="number" id="edit-balance" name="balance" required />
+
+        <button type="submit">Actualizar Balance</button>
+      </form>
+    </div>
+
+    <script>
+      function editUser(id, balance) {
+        document.getElementById("edit-balance").value = balance;
+        
+      }
+
+      function updateUser(event) {
+  const id = document.getElementById("edit-id").value;
+  const balance = document.getElementById("edit-balance").value;
+
+  // Allow the default form behavior (page reload)
+  // event.preventDefault();
+
+  fetch(`http://localhost:3001/usuarios/${id}/balance`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ balance}),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        showMessage(
+          "Usuario actualizado exitosamente. Refresca la página para ver los cambios.",
+          "success"
+        );
+      }
+    });
+}
+
+    </script>
+  </body>
+</html>

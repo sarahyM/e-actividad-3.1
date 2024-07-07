@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+</head>
+<body>
+  <div class="container flex"  style="height: 500px;">
+    <div class="card" style="width: fit-content; height: auto;">
+      <div class="card-header" style="height: 100px;">
+        <h2 class="card-header-title" style="margin-top: 20px;">Iniciar sesión</h2>
+      </div>
+      <div class="card-body" style="height: 500px; width: 300px;">
+        <form style="height: fit-content;" onsubmit="login(event)">
+          <div class="flex space-y-4">
+            <label for="nombre" class="text-sm font-medium">Nombre</label>
+            <input type="text" id="nombre" class="input rounded-md px-6 py-3 bg-muted text-primary-foreground w-full" placeholder="Ingresa tu nombre">
+
+            <label for="pasword" class="text-sm font-medium">Contraseña</label>
+            <input type="text" id="pasword" class="input rounded-md px-6 py-3 bg-muted text-primary-foreground w-full" placeholder="Ingresa tu contraseña">
+            <button type="submit" class="btn bg-primary text-white py-3 px-6 rounded-md mt-4" style="color: black;" >Iniciar sesión</button>
+
+            
+
+            <a class="btn bg-primary text-white py-3 px-6 rounded-md mt-4" style="color: black;" href="http://localhost:3001/usuarios">Usuarios</a>
+            <a class="btn bg-primary text-white py-3 px-6 rounded-md mt-4" style="color: black;" href="http://localhost:3001/usuarios">Balance</a>
+            
+
+
+            
+
+          </div>
+        </form>
+      </div>
+      <div ></div>
+    </div>
+  </div>
+  
+
+
+  <div
+        class="footer"
+        style="
+          background-color: rgb(238, 195, 232);
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        "
+      >
+        <h2>Equipo del Proyecto</h2>
+        <div
+          class="container"
+          style="display: flex; justify-content: space-between"
+        >
+          <div class="team" style="display: flex; flex-wrap: wrap; width: 500px;">
+            <div class="team-member" style="margin: 10px; text-align: center">
+              <h3>Sarahy Ocanto <br> C.I: 30.140.127</h3>            
+              <h3>Norlys Castañeda <br> CI. 20.597.586</h3> 
+              <h3>Maria Molina <br> C.I: 27.229.410</h3> 
+              <h3>Juan Pablo Castro <br> C.I: 30.771.665</h3> 
+
+
+
+            </div>
+          </div>
+          <div
+            class="info"
+            style="display: flex; flex-direction: column; width: 100%"
+          >
+            <h3>Profesor <br> Roberto D Michele</h3>
+            <h3>Materia: <br> Backend </h3>
+          </div>
+          <div class="logo-container" style="text-align: center">
+            <img
+              src="./imagen/logo-color universidad.png"
+              alt="logo"
+              class="logo"
+              style="width: 200px; margin-top: 20px"
+            />
+          </div>
+        </div>
+
+        <div id="error-message"></div>
+
+  <script>
+    function login(event) {
+  const accountData = {
+          nombre: document.getElementById("nombre").value,
+          pasword: document.getElementById("pasword").value,
+          
+  };
+  event.preventDefault();
+
+  
+  fetch("http://localhost:3001/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(accountData),
+})
+  .then((response) => response.json())
+  .then((data) => {
+  if (data.success) {
+    const token = data.success;
+    console.log("Token received:", token);
+    localStorage.setItem('myAuthToken', token); // Store token in local storage
+
+    // Update token display div
+    const tokenDisplayDiv = document.getElementById('token-display');
+    tokenDisplayDiv.textContent = `Token: ${token}`;
+  } else {
+      console.error("Login failed:", data.error);
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching login data:", error);
+  });
+}
+
+
+
+
+  </script>
+</body>
+</html>

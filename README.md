@@ -1,9 +1,11 @@
-# Sistema Bancario
+# Nombre de tu Proyecto
 
-El Sistema Bancario Social cumple los objetivos, proporcionando una solución robusta y eficiente para gestionar préstamos, ahorros y cooperativas. MySQL y Workbench aseguran un manejo eficiente de datos, y la interfaz en HTML y CSS ofrece una experiencia fácil de usar. Las vistas del sistema y sus funcionalidades CRUD, basado en un sistema de sesiones con roles, permiten realizar todas las operaciones necesarias de manera efectiva, segun el rol de quien ha iniciado sesion.
+*Sistema Bancario
+
+El Sistema Bancario Social cumple los objetivos, proporcionando una solución robusta y eficiente para gestionar préstamos, ahorros y cooperativas. MySQL y Workbench aseguran un manejo eficiente de datos, y la interfaz en HTML y CSS ofrece una experiencia fácil de usar. Las cinco vistas del sistema y sus funcionalidades CRUD permiten realizar todas las operaciones necesarias de manera efectiva.
 
 
-# Base de datos MySQL 
+# Basesde datos MySQL 
 
 Debes tener instalado MySQL y ejecutar el Scrip que se encuentra en el archivo ---> sistema_bancario.sql
 
