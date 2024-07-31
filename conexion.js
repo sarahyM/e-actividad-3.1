@@ -1,11 +1,11 @@
 const mysql = require("mysql2");
 require("dotenv").config();
 
-const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
-const dbName = process.env.DB_NAME;
-const dbPort = process.env.DB_PORT
+const dbHost = "localhost"; //process.env.DB_HOST;
+const dbUser = "root"; //process.env.DB_USER;
+const dbPassword = "root"; //process.env.DB_PASSWORD;
+const dbName = "sistema_bancario"; //process.env.DB_NAME;
+const dbPort = 3306; //process.env.DB_PORT
 
 // Conexión a la base de datos usando las variables de entorno
 const pool = mysql.createConnection({
@@ -15,8 +15,6 @@ const pool = mysql.createConnection({
   database: dbName,
   port: dbPort,
 });
-
-
 
 pool.connect(function (error) {
   if (error) {

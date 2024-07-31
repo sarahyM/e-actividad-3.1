@@ -1,9 +1,5 @@
 const pool = require("../conexion");
-const {AñadirCuentaPrestamo} = require("../controllers/cuentas");
-const {AñadirCuentaAhorro} = require("../controllers/cuentas");
-const {AñadirCooperativa} = require("../controllers/cooperativas"); // Importa el modelo de préstamos si no lo has hecho aún
- // Importa el modelo de préstamos si no lo has hecho aún
- // Importa el modelo de préstamos si no lo has hecho aún
+
 const cooperativa = require("./cooperativas");
 
 class UsuariosModel {
@@ -24,13 +20,6 @@ class UsuariosModel {
         id,
         nombre,
         hashedPassword,
-        tipoCuenta,
-        balance,
-        fechaProximoPago,
-        tasaInteres,
-        cooperativa,
-        balanceCooperativa,
-        fechaCooperativa,
         rol,
       } = usuario;
 
@@ -42,29 +31,6 @@ class UsuariosModel {
           if (error) {
             return reject(error);
           }
-
-          // Based on 'tipoCuenta', insert data into the respective table
-          switch (tipoCuenta) {
-            case "ahorro":
-              AñadirCuentaAhorro(id, balance, tasaInteres);
-              break;
-            case "prestamo":
-              AñadirCuentaPrestamo(id, balance, fechaProximoPago, tasaInteres);
-              break;
-            case "cooperativa":
-              AñadirCooperativa(
-                id,
-                cooperativa,
-                balanceCooperativa,
-                fechaCooperativa
-              );
-              break;
-            default:
-              // Handle invalid 'tipoCuenta' value
-              console.error(`Tipo de cuenta no válido: ${tipoCuenta}`);
-              break;
-          }
-
           resolve(results);
         }
       );
@@ -109,7 +75,38 @@ class UsuariosModel {
   static async obtenerDetallesUsuario(id) {
     return new Promise((resolve, reject) => {
       pool.query(
-        "SELECT * FROM usuarios usu, prestamos pres, ahorros aho, cooperativas coop WHERE usu.id = ? AND (pres.usuarioId = usu.id OR usu.id = aho.usuarioId);",
+        `SELECT 
+              usu.id AS usuarioId,
+              usu.rol,
+              usu.nombre,
+              pres.id AS prestamoId,
+              pres.balance AS prestamoBalance,
+              pres.tasaInteres AS prestamoTasaInteres,
+              pres.fechaProximoPago AS prestamoFechaProximoPago,
+              aho.id AS ahorroId,
+              aho.balance AS ahorroBalance,
+              aho.tasaInteres AS ahorroTasaInteres,
+              coop.id AS cooperativaId,
+              coop.recurrencia,
+              coop.montoRecurrente,
+              coop.numeroAportantes,
+              coop.fechaInicio,
+              coop.fechaFin,
+              ac.fechaPago,
+              ac.fechaProximoAporte,
+              ac.montoAportado
+          FROM 
+              usuarios usu
+          LEFT JOIN 
+              prestamos pres ON pres.usuarioId = usu.id
+          LEFT JOIN 
+              ahorros aho ON aho.usuarioId = usu.id
+          LEFT JOIN 
+              aportantesCooperativa ac ON ac.usuarioId = usu.id
+          LEFT JOIN 
+              cooperativas coop ON coop.id = ac.cooperativaId
+          WHERE 
+            usu.id = ?;`,
         [id], // Pass the 'id' parameter to the query
         (error, results) => {
           if (error) {
@@ -120,7 +117,7 @@ class UsuariosModel {
           if (!results.length) {
             return resolve(null); // No user found
           }
-
+          console.log(results);
           resolve(results[0]);
         }
       );

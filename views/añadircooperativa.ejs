@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuarios - SISTEMA BANCARIO</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+      body {
+        font-family: Manrope;
+        background-color: rgb(240, 247, 255);
+
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        color: black;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 40px;
+      }
+      h2 {
+        color: black;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-size: 25px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+        max-width: 600px;
+        background-color: #716bbe;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s;
+      }
+      li:last-child {
+        border-bottom: none;
+      }
+      li:hover {
+        background-color: #e3b2f2;
+      }
+      .form-container {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: rgb(238, 195, 232);
+      }
+      .form-container label, .label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #42235a;
+      }
+      .form-container input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .form-container button {
+        padding: 10px 20px;
+        background-color: #995bc2;
+        color: #fff;
+        border: none;
+        border-radius: 28px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .form-container button:hover {
+        background-color: #995bc2;
+      }
+
+      .edit-button,
+      .delete-button {
+        padding: 3px;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .edit-button {
+        background-color: #d652d0;
+      }
+      .edit-button:hover {
+        background-color: #81298d;
+      }
+      .delete-button {
+        background-color: #da4b4b;
+      }
+      .delete-button:hover {
+        background-color: #b71c1c;
+      }
+      .message {
+        display: none;
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 10px;
+      }
+      .message.success {
+        background-color: #d4edda;
+        color: #8959b1;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 600px;
+        gap: 10px;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #995bc2;
+        padding: 10px 20px;
+        border-radius: 20px;
+        transition: background-color 0.3s;
+      }
+      .nav a:hover {
+        background-color: #713797;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SISTEMA BANCARIO</h1>
+    <h2>Detalles de mi cuenta</h2>
+
+    <div id="message" class="message success">
+      Refresca la página para ver los cambios
+    </div>
+
+    <div class="form-container">
+      <h2>Crear cooperativa</h2>
+      <form id="add-user-form" onsubmit="crearCooperativa(event)">
+
+        <label for="recurrencia">Recurrencia: </label>
+        <select id="recurrencia" name="recurrencia" required>
+          <option value="semanal">Semanal</option>s
+          <option value="quincenal">Quincenal</option>
+          <option value="mensual">Mensual</option>
+        </select>
+
+        <label for="montoRecurrente">Monto recurrente:</label>
+        <input type="number" id="montoRecurrente" name="montoRecurrente" required />
+
+        <label for="fechaInicio">Fecha de inicio:</label>
+        <input type="date" id="fechaInicio" name="fechaInicio" required />
+        
+        <button type="submit">Crear cooperativa</button>
+      </form>
+    </div>
+    <div class="nav">
+      <a href="/">Inicio</a>
+    </div>
+
+    <script>
+
+      function showMessage(message, type) {
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = message;
+        messageDiv.className = "message " + type;
+        messageDiv.style.display = "block";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+        }, 3001);
+      }
+
+      function crearCooperativa(event) {
+        const cooperativa = {
+          recurrencia: document.getElementById("recurrencia").value,
+          montoRecurrente: document.getElementById("montoRecurrente").value,
+          fechaInicio: document.getElementById("fechaInicio").value,
+        };
+        event.preventDefault();
+
+
+        const url = "http://localhost:3001/cooperativas"; // Assuming this is the endpoint for creating users
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(cooperativa),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              showMessage(
+                "Cooperativa creada con éxito",
+                "success"
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error al crear la cooperativa:", error);
+            showMessage("Error al crear la cooperativa. Intente nuevamente.", "error");
+          });
+      }
+
+    </script>
+  </body>
+</html>

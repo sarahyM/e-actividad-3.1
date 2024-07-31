@@ -1,3 +1,4 @@
+const CooperativaModel = require("../models/cooperativas");
 const UsuarioModel = require("../models/usuarios");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
@@ -7,10 +8,11 @@ const saltRounds = parseInt(process.env.SALT_KEY);
 
 
 class UsuarioController {
-  ObtenerTodosLosUsuarios(req, res) {
+  async ObtenerTodosLosUsuarios(req, res) {
     console.log(`GET5`);
+    const cooperativas = await CooperativaModel.obtenerTodasCooperativas();
     UsuarioModel.obtenerTodosLosUsuarios()
-      .then((usuarios) => res.render("usuarios", { usuarios }))
+      .then((usuarios) => res.render("usuarios", { usuarios, cooperativas }))
       .catch((error) => res.status(500).json({ error: error.message }));
   }
 
@@ -56,6 +58,7 @@ class UsuarioController {
 
   ObtenerDetallesUsuario(req, res) {
     const { id } = req.params;
+    
     UsuarioModel.obtenerDetallesUsuario(id)
       .then((usuario) => {
         if (usuario) {

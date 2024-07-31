@@ -47,18 +47,32 @@ UNLOCK TABLES;
 -- Table structure for table `cooperativas`
 --
 
+-- DROP TABLE IF EXISTS `cooperativas`;
+-- /*!40101 SET @saved_cs_client     = @@character_set_client */;
+-- /*!50503 SET character_set_client = utf8mb4 */;
+-- CREATE TABLE `cooperativas` (
+--   `id` int NOT NULL AUTO_INCREMENT,
+--   `usuarioID` int DEFAULT NULL,
+--   `fechaCooperativa` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+--   `balanceCooperativa` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
+--   `tipo` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- Crear tabla `cooperativa`
 DROP TABLE IF EXISTS `cooperativas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cooperativas` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `usuarioID` int DEFAULT NULL,
-  `fechaCooperativa` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `balanceCooperativa` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `tipo` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `recurrencia` ENUM('semanal', 'quincenal', 'mensual') NOT NULL,
+  `montoRecurrente` INT NOT NULL,
+  `numeroAportantes` INT DEFAULT 0,
+  `fechaInicio` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaFin` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cooperativas`
@@ -66,7 +80,7 @@ CREATE TABLE `cooperativas` (
 
 LOCK TABLES `cooperativas` WRITE;
 /*!40000 ALTER TABLE `cooperativas` DISABLE KEYS */;
-INSERT INTO `cooperativas` VALUES (1,1,'2024-07-24','12','vivienda');
+INSERT INTO `cooperativas` VALUES (1,'semanal', 300 , 1,'2024-10-02', null);
 /*!40000 ALTER TABLE `cooperativas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,6 +139,32 @@ LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` VALUES (1,'admin',NULL,'$2a$10$Lasbu4pXh9qjzWPzI5Pu5.s5C3648TZpf3v7F5T97zHzbtbzyMAR6','admin');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+
+-- Crear tabla `aportantesCooperativa`
+
+DROP TABLE IF EXISTS `aportantesCooperativa`;
+CREATE TABLE `aportantesCooperativa` (
+  `cooperativaId` INT NOT NULL,
+  `usuarioId` INT NOT NULL,
+  `fechaPago`varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `fechaProximoAporte` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `montoAportado` INT DEFAULT 0,
+  PRIMARY KEY (`cooperativaId`, `usuarioId`),
+  FOREIGN KEY (`cooperativaId`) REFERENCES `cooperativas`(`id`),
+  FOREIGN KEY (`usuarioId`) REFERENCES `usuarios`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `aportantescooperativa`
+--
+
+LOCK TABLES `aportantesCooperativa` WRITE;
+/*!40000 ALTER TABLE `aportantesCooperativa` DISABLE KEYS */;
+INSERT INTO `aportantesCooperativa` VALUES (1, 1, '2024-10-02', '2024-10-02', 0);
+/*!40000 ALTER TABLE `aportantesCooperativa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

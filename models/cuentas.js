@@ -88,7 +88,7 @@ class CuentasModel {
 
     static mostrarProximaFechaPago(id) {
         return new Promise((resolve, reject) => {
-            pool.query('SELECT fechaProximoPago FROM prestamos WHERE id = ? AND tipo = ?', [id, 'prestamo'], (error, results) => {
+            pool.query('SELECT fechaProximoPago FROM prestamos WHERE id = ?', [id], (error, results) => {
                 if (error) {
                     return reject(error);
                 }

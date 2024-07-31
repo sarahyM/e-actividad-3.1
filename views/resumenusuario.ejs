@@ -56,12 +56,19 @@
     <h1>Resumen del Usuario</h1>
     <div class="user-details">
     <h2>Usuario</h2>
-      <p><span>ID:</span> <%= usuario.id %></p>
+      <p><span>ID:</span> <%= usuario.usuarioId %></p>
       <p><span>Nombre:</span> <%= usuario.nombre %></p>
       <h2>Cuenta del Usuario</h2>
-      <p><span>Balance:</span> <%= usuario.balance %></p>
-      <p><span>Tasa de Interes:</span> <%= usuario.tasaInteres %></p>
-      <p><span>Cooperativa:</span> <%= usuario.tipo %></p>
+      <p><span>Balance:</span> <%= usuario.ahorroBalance || usuario.prestamoBalance %></p>
+      <p><span>Tasa de Interes:</span> <%= usuario.ahorroTasaInteres || usuario.prestamoTasaInteres %></p>
+      <% if (usuario.cooperativaId) { %>
+        <h2>Cooperativa</h2>
+        <p><span>Próximo aporte:</span> <%= usuario.fechaProximoAporte %></p>
+        <p><span>Fecha de pago:</span> <%= usuario.fechaPago %></p>
+        <p><span>Recurrencia de pago:</span> <%= usuario.recurrencia %></p>
+        <p><span>Fecha de fin:</span> <%= usuario.fechaFin || "Por definir" %></p>
+        <p><span>Total aportado:</span> <%= usuario.montoAportado %></p>
+      <% } %>
       <!-- <h2>Cuenta del Usuario</h2>
       <p><span>Saldo:</span> <%= usuario.saldo %></p>
       <p><span>Tasa de Interes:</span> <%= usuario.tasaInteresCuenta %></p>
@@ -70,5 +77,6 @@
     </div>
     
     <a class="back-link" href="/usuarios">Volver a la lista de usuarios</a>
+    <a class="back-link" href="http://localhost:3001/cooperativas/abonar/<%= usuario.usuarioId %>">Abonar cooperativa</a>
   </body>
 </html>
